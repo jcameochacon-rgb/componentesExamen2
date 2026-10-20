@@ -1,100 +1,95 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { BotonStarted } from '@/components/botonstarted';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { CryptoOrb } from '@/components/crypto-orb';
+import { Navbar } from '@/components/navbar';
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <View style={styles.screen}>
+      <Navbar />
+      <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+        <View style={styles.content}>
+          <Text style={styles.logo} accessibilityRole="header">
+            Crypt<Text style={styles.logoAccent}>X</Text>
+          </Text>
 
-        <BotonStarted />
+          <View style={styles.artwork}>
+            <CryptoOrb />
+          </View>
 
-        <ThemedText type="code" style={styles.code}>
-        </ThemedText>
+          <View style={styles.description}>
+            <Text style={styles.title}>Jump start your{"\n"}crypto portfolio</Text>
+            <Text style={styles.subtitle}>
+              Take your investment portfolio{"\n"}to next level
+            </Text>
+          </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
+          <BotonStarted style={styles.button} />
+        </View>
       </SafeAreaView>
-    </ThemedView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: '#050505',
   },
   safeArea: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
     alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  content: {
+    width: '100%',
+    maxWidth: 480,
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    paddingHorizontal: 26,
+    paddingTop: 20,
+    paddingBottom: 22,
+  },
+  logo: {
+    color: '#FFFFFF',
+    fontSize: 48,
+    fontWeight: '800',
+    letterSpacing: -2,
+    lineHeight: 58,
+  },
+  logoAccent: {
+    color: '#6552FE',
+  },
+  artwork: {
+    flex: 1,
+    minHeight: 230,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  description: {
+    marginBottom: 48,
+    gap: 28,
   },
   title: {
-    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: 34,
+    fontWeight: '700',
+    letterSpacing: -0.8,
+    lineHeight: 43,
   },
-  code: {
-    textTransform: 'uppercase',
+  subtitle: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    lineHeight: 23,
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  button: {
+    minHeight: 57,
+    justifyContent: 'center',
+    borderRadius: 16,
+    shadowColor: '#A51BFF',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.32,
+    shadowRadius: 18,
+    elevation: 8,
   },
 });
