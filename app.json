@@ -37,6 +37,17 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "9c6ddfbc-983a-4673-9726-2f561b7e36ff"
+      }
+    },
+    "owner": "manchasjs-team"
   }
 }
